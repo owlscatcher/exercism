@@ -4,10 +4,7 @@ class BoutiqueInventory
   end
 
   def item_names
-    temp = Array.new
-    @items.each { |item| temp.push item[:name] }
-
-    temp.sort
+    @items.map { |item| item[:name] }.sort
   end
 
   def cheap
@@ -19,11 +16,11 @@ class BoutiqueInventory
   end
 
   def stock_for_item(name)
-    @items.find { |item| item[:name] == name }[:quantity_by_size]
+    @items.find { |item| item[:name].eql? name }[:quantity_by_size]
   end
 
   def total_stock
-
+    @items.map { |item| item[:quantity_by_size].values.sum }.sum
   end
 
   private
